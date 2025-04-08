@@ -117,24 +117,31 @@ location_fig = px.choropleth(
 
 # Streamlit Layout
 st.title("March Madness Twitter Analysis Dashboard")
-tabs = st.tabs(["Game Quality",  "Daily Sentiment",  'Daily Engagement', "Location Heatmap",])
+tabs = st.tabs(["Location Heatmap", "Game Quality",  "Daily Sentiment",  'Daily Engagement',])
 
 with tabs[0]:
-    st.subheader("Game Quality Analysis")
-    st.write("This chart shows the daily measure of game quality based on sentiment analysis of tweets.")
-    st.plotly_chart(game_quality_fig)
-
-with tabs[1]:
-    st.subheader("📈 Daily Sentiment")
-    fig1 = px.line(sentiment_summary, x='Date', y='Positivity', color='School_Mentioned', markers=True)
-    st.plotly_chart(fig1)
-
-with tabs[2]:
-    st.subheader("🔥 Daily Engagement")
-    fig2 = px.line(sentiment_summary, x='Date', y='Engagement', color='School_Mentioned', markers=True)
-    st.plotly_chart(fig2)
-
-with tabs[3]:
     st.subheader("Tweet Location Heatmap")
     st.write("This animated map shows the daily tweet volume by U.S. state.")
     st.plotly_chart(location_fig, use_container_width=True)
+
+
+with tabs[1]:
+    st.subheader("Game Quality Analysis")
+    st.write("This chart shows the daily measure of game quality based on sentiment analysis of tweets. A higher value indicate better quality of games")
+    st.plotly_chart(game_quality_fig)
+
+
+with tabs[2]:
+    st.subheader("📈 Daily Sentiment")
+    st.write("Measure of daily sentiment for each Team. Based on word counts of positive (hopefull)/negative (dejected) words in each tweets")
+    fig1 = px.line(sentiment_summary, x='Date', y='Positivity', color='School_Mentioned', markers=True)
+    st.plotly_chart(fig1)
+
+
+
+with tabs[3]:
+    st.subheader("🔥 Daily Engagement ")
+    st.write("Measure of Fan Engagement - based on like, retweet, replies, and impressions ")
+    fig2 = px.line(sentiment_summary, x='Date', y='Engagement', color='School_Mentioned', markers=True)
+    st.plotly_chart(fig2)
+
